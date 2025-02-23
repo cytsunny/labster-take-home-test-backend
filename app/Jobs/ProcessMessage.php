@@ -26,6 +26,7 @@ class ProcessMessage implements ShouldQueue
     {
         Log::info('Processing message: ' . $this->message);
         $userMessage = UserMessage::find($this->message->id);
+        // User message can be processed manually if it is not pending
         if ($userMessage->status != 'pending') {
             return;
         }

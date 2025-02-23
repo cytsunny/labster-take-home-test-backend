@@ -15,7 +15,8 @@ class UserMessageController extends Controller
      */
     public function index()
     {
-        return 'testing index';
+        $userMessages = UserMessage::with('user')->get();
+        return view('list-all-message', ['userMessages' => $userMessages]);
     }
 
     /**
@@ -76,9 +77,19 @@ class UserMessageController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(string $id)
     {
-        //
+        $userMessage = UserMessage::find($id);
+        if ( !$userMessage )
+            return response()->json([
+                'message' => 'User message not found',
+            ], 404);
+
+        $userMessage->processMessage();
+        $userMessage->status = 'done';
+        $userMessage->save();
+
+        return redirect('/user-message');
     }
 
     /**
