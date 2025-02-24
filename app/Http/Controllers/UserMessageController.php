@@ -55,7 +55,9 @@ class UserMessageController extends Controller
         ]);
 
         ProcessMessage::dispatch($userMessage);
-        return response()->json($userMessage);
+
+        $userMessages = UserMessage::where('user_id', $user->id)->get();
+        return response()->json($userMessages);
     }
 
     /**
