@@ -55,15 +55,31 @@ class UserMessageController extends Controller
         ]);
 
         ProcessMessage::dispatch($userMessage);
-        return $userMessage;
+        return response()->json($userMessage);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email'
+        ]);
+        
+        if ( $validator->fails() ) {
+            return response()->json([
+                'message' => 'Invalid input',
+            ], 400);
+        };
+
+        $user = User::firstOrCreate(
+            ['email' => $request->input('email')],
+            ['name' => '', 'password' => '']
+        );
+
+        $userMessages = UserMessage::where('user_id', $user->id)->get();
+        return response()->json($userMessages);
     }
 
     /**
