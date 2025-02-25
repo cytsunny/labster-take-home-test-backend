@@ -17,8 +17,23 @@ class UserMessageTest extends TestCase
 
     public function test_admin_page(): void
     {
+        $user = new User;
+        $user->name = '';
+        $user->email = 'testing@example.com';
+        $user->password = '';
+        $user->save();
+
+        $userMessage = new UserMessage;
+        $userMessage->user_id = 1;
+        $userMessage->message = 'test message';
+        $userMessage->status = 'pending';
+        $userMessage->save();
+
         $response = $this->get('user-message');
         $response->assertStatus(200);
+
+        $response->assertSee($userMessage->message);
+        $response->assertSee($user->email);
     }
 
     public function test_user_first_create(): void
