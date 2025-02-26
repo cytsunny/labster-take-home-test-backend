@@ -1,3 +1,5 @@
+# Message System Prototype
+
 ## Requirement Assumptions
 Considering this is just a prototype for the messenging service which won't be running on any external server, no login system is not added. Different users are identified by email with no password requirement.
 
@@ -32,7 +34,7 @@ Laravel Sail is used in this project, so docker and docker-compose is needed You
 7. Run `./vendor/bin/sail artisan migrate` to set up the database
 8. Open a browser and input navigate to http://localhost/user-message and you should see the Message System Admin page with no message.
 9. Optional: run `./vendor/bin/sail artisan queue:listen` to have the worker running. If this is not run, message will only be processed when the admin click the button on admin page.
-10. Head over to [this repository](https://github.com/cytsunny/labster-take-home-test-client) to set up the client.
+10. Head over to [frontend repository](https://github.com/cytsunny/labster-take-home-test-client) to set up the client.
 
 ### Testing
 After running setp 1-6, you may run the following to run the test. 
