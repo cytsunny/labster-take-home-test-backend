@@ -57,8 +57,11 @@ To reduce the prerequisite of deploying this prototype, docker is used. Laravel 
 ### Login system
 For demo of the core function in message handling, login system is not implemented. In production, for security reason, a login system is certainly needed, at least for the admin page even if the service is public.
 
-### Queue and workder
+### Queue and worker
 For this prototype, the MySQL database is used for queue management as that is the out-of-the-box solution provided by Laravel. In production, proper queue service like beanstalk or RabbitMQ should be used. Some more effort should also be put in ways to stop the worker after a human handled the message to reduce waste in coputing power.
 
 ### Separating Admin system from API system
 If there will be multiple admin, the admin page can also become complicated and would better be separated from the backend, just like how client is not part of the backend repository.
+
+### Socket for message status update
+Depending on the requirement, socket connection can be added to let user have real-time update on message status without keep pressing the refresh button.
